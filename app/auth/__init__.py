@@ -10,7 +10,10 @@ auth = Blueprint('auth', __name__, template_folder='templates')
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-    print(form.validate())
+
+    if form.validate_on_submit():
+        print('validation success')
+
     return render_template('login.html', form=form)
 
 
