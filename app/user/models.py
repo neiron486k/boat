@@ -15,6 +15,9 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(), nullable=False)
     roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
 
+    def has_role(self, role: str):
+        return bool(len([r for r in self.roles if r.name == role]))
+
     def __repr__(self):
         return '<User %r>' % self.title
 
