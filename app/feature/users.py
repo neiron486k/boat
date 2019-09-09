@@ -1,7 +1,7 @@
 from flask import session
 from flask_login import current_user, LoginManager, login_user
 from flask_principal import Identity, identity_loaded, RoleNeed, UserNeed, AnonymousIdentity, Principal, \
-    identity_changed
+    identity_changed, PermissionDenied
 from app.user.models import User
 
 login_manager = LoginManager()
@@ -33,9 +33,11 @@ def init_app(app):
         identity_changed.send(app, identity=Identity(user.id))
         return str(user.id)
 
+    @app.route('/logout', methods=['GET', 'POST'])
     def logout():
-        session.pop('identity.name', None)
-        session.pop('identity.auth_type', None)
+        session.clear()
+        identity_changed.send(app, identity=AnonymousIdentity())
+        return ''
 
     # init principal
     principal.init_app(app)
@@ -60,3 +62,7 @@ def init_app(app):
                 identity.provides.add(RoleNeed(role.name))
 
         return identity
+
+    @app.errorhandler(PermissionDenied)
+    def special_exception_handler(error):
+        return 'Permission denied', 403
