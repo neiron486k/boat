@@ -27,6 +27,6 @@ class HomeAdminView(AdminMixin, AdminIndexView):
     pass
 
 
-def init_app(app):
+def admin_feature(app):
     admin.init_app(app, index_view=HomeAdminView(name='Home'), url='/')
     admin.add_views(AdminView(User, db.session))

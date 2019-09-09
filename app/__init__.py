@@ -1,5 +1,5 @@
 from flask import Flask
-from .feature import orm, users, admin
+from feature import orm, users
 
 
 def create_app(config=None):
@@ -13,15 +13,15 @@ def create_app(config=None):
 
     app = Flask(__name__)
     app.config.from_object(config)
-    orm.init_app(app)
-    users.init_app(app)
-    admin.init_app(app)
+    orm.orm_feature(app)
+    users.users_feature(app)
+    # admin.init_app(app)
 
     # Blueprints #
+    from app.auth import auth
+    app.register_blueprint(auth, url_prefix='/auth')
+
     from app.article import article_bp
     app.register_blueprint(article_bp)
-
-    # from app.user import user_bp
-    # app.register_blueprint(user_bp, url_prefix='/user')
 
     return app

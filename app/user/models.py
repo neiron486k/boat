@@ -1,4 +1,4 @@
-from app.feature.orm import db
+from feature.orm import db
 from flask_login import UserMixin
 
 roles_users = db.Table('roles_users',

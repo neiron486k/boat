@@ -5,6 +5,6 @@ migrate = Migrate()
 db = SQLAlchemy()
 
 
-def init_app(app):
+def orm_feature(app):
     db.init_app(app)
     migrate.init_app(app, db)

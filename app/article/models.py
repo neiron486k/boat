@@ -1,4 +1,4 @@
-from app.feature.orm import db
+from feature.orm import db
 
 
 class Article(db.Model):

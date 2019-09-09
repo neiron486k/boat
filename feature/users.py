@@ -1,14 +1,13 @@
 from flask import session
-from flask_login import current_user, LoginManager, login_user
-from flask_principal import Identity, identity_loaded, RoleNeed, UserNeed, AnonymousIdentity, Principal, \
-    identity_changed, PermissionDenied
+from flask_login import current_user, LoginManager
+from flask_principal import Identity, identity_loaded, RoleNeed, UserNeed, AnonymousIdentity, Principal
 from app.user.models import User
 
 login_manager = LoginManager()
 principal = Principal()
 
 
-def init_app(app):
+def users_feature(app):
     """
     Add users feature
     :param app:
@@ -25,22 +24,6 @@ def init_app(app):
     @login_manager.user_loader
     def load_user(user_id: int):
         return User.query.get(user_id)
-
-    @app.route('/login', methods=['GET', 'POST'])
-    def login():
-        user = User.query.get(1)
-        login_user(user)
-        identity_changed.send(app, identity=Identity(user.id))
-        return str(user.id)
-
-    @app.route('/logout', methods=['GET', 'POST'])
-    def logout():
-        session.clear()
-        identity_changed.send(app, identity=AnonymousIdentity())
-        return ''
-
-    # init principal
-    principal.init_app(app)
 
     @principal.identity_loader
     def load_identity():
@@ -63,6 +46,6 @@ def init_app(app):
 
         return identity
 
-    @app.errorhandler(PermissionDenied)
-    def special_exception_handler(error):
-        return 'Permission denied', 403
+    # @app.errorhandler(PermissionDenied)
+    # def special_exception_handler(error):
+    #     return 'Permission denied', 403

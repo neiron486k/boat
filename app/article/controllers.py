@@ -1,6 +1,6 @@
 from flask.views import MethodView
 from flask import jsonify, request
-from app.feature.orm import db
+from feature.orm import db
 from .models import Article
 from .forms import ArticleForm
 from app.user.permission import admin_permission
