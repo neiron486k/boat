@@ -11,6 +11,7 @@ class ArticleAPI(MethodView):
 
     def get(self):
         data = [article.to_dict() for article in Article.query.all()]
+        print('111')
         return jsonify(data)
 
     @admin_permission.require()
