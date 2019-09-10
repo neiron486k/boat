@@ -1,5 +1,5 @@
 from flask import Flask
-from feature import orm, users
+from feature import orm, users, admin
 
 
 def create_app(config=None):
@@ -15,7 +15,7 @@ def create_app(config=None):
     app.config.from_object(config)
     orm.orm_feature(app)
     users.users_feature(app)
-    # admin.init_app(app)
+    admin.admin_feature(app)
 
     # Blueprints #
     from app.auth import auth

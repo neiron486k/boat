@@ -19,12 +19,12 @@ class User(UserMixin, db.Model):
         return bool(len([r for r in self.roles if r.name == role]))
 
     def __repr__(self):
-        return '<User %r>' % self.title
+        return '<User %r>' % self.email
 
     def to_dict(self):
         return {
             'id': self.id,
-            'email': self.title,
+            'email': self.email,
         }
 
 
