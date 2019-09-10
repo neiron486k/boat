@@ -21,6 +21,9 @@ def create_app(config=None):
     from app.auth import auth
     app.register_blueprint(auth, url_prefix='/auth')
 
+    from app.main import main
+    app.register_blueprint(main)
+
     from app.article import article_bp
     app.register_blueprint(article_bp)
 
