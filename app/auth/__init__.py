@@ -19,9 +19,6 @@ def login():
         login_user(user)
         return redirect(request.args.get('next') or "/")
 
-        if next:
-            return redirect(next)
-
     return render_template('login.html', form=form)
 
 
