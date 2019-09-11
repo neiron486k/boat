@@ -4,6 +4,7 @@ from feature.orm import db
 from .models import Article
 from .forms import ArticleForm
 from app.user.permission import admin_permission
+from flask_login import login_required, current_user
 
 
 class ArticleAPI(MethodView):
@@ -13,7 +14,8 @@ class ArticleAPI(MethodView):
         data = [article.to_dict() for article in Article.query.all()]
         return jsonify(data)
 
-    @admin_permission.require()
+    # @admin_permission.require()
+    @login_required
     def post(self):
         data = request.get_json(force=True)
         form = ArticleForm(item=data)

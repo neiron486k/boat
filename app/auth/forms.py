@@ -19,7 +19,7 @@ class LoginForm(FormMixin, FlaskForm):
             raise ValidationError("User not found")
 
         # check password
-        if not bcrypt.checkpw(self.password.data.encode('utf-8'), user.password.encode('utf-8')):
+        if not bcrypt.checkpw(self.password.data.encode('utf-8'), user.password):
             raise ValidationError("Incorrect password")
 
 

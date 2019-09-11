@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for
 from flask_login import logout_user, login_required, login_user
+from flask_principal import identity_changed, Identity, AnonymousIdentity
 from feature.users import login_manager
 from app.user.models import User
 from .forms import LoginForm, SignupForm
@@ -16,6 +17,10 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.data.get('email')).first()
         login_user(user)
+
+        # Tell Flask-Principal the identity changed
+        identity_changed.send(auth, identity=Identity(user.id))
+
         return redirect(request.args.get('next') or url_for('main.home'))
 
     return render_template('login.html', form=form)
@@ -25,6 +30,10 @@ def login():
 @login_required
 def logout():
     logout_user()
+
+    # Tell Flask-Principal the user is anonymous
+    identity_changed.send(auth, dentity=AnonymousIdentity())
+
     return redirect(url_for('auth.login'))
 
 
