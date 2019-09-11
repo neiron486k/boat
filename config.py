@@ -13,3 +13,4 @@ class TestDefaultConfig(DefaultConfig):
     SECRET_KEY = 'test'
     SQLALCHEMY_DATABASE_URI = 'sqlite:////tmp/test.db'
     TESTING = True
+    DEBUG = True
