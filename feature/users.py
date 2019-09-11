@@ -25,6 +25,9 @@ def users_feature(app):
     def load_user(user_id: int):
         return User.query.get(user_id)
 
+    # init principal
+    principal.init_app(app)
+
     @principal.identity_loader
     def load_identity():
         if current_user.is_authenticated:
