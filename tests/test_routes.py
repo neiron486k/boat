@@ -27,7 +27,7 @@ class MixinTestCase:
                 email='admin@example.com',
                 password='admin',
                 confirm='admin'
-            ))
+            ), False)
             role = Role(
                 name='admin'
             )

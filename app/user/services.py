@@ -4,11 +4,12 @@ import bcrypt
 
 
 class UserService(object):
-    def create(self, data: dict) -> User:
+    def create(self, data: dict, flush: bool = True) -> User:
         data.pop('confirm')
         user = User(**data)
         passwordHash = bcrypt.hashpw(user.password.encode('utf-8'), bcrypt.gensalt())
         user.password = passwordHash
         db.session.add(user)
-        db.session.commit()
+        if flush:
+            db.session.commit()
         return user

@@ -6,6 +6,7 @@ from app.user.models import User
 from .forms import LoginForm, SignupForm
 from flask import request
 from app.user.services import UserService
+from .signals import signup as signup_signal
 
 auth = Blueprint('auth', __name__, template_folder='templates')
 
@@ -42,9 +43,9 @@ def signup():
     form = SignupForm()
 
     if form.validate_on_submit():
-        service = UserService()
-        new_user = service.create(form.data)
+        new_user = UserService().create(form.data)
         login_user(new_user)
+        signup_signal.send(new_user)
         return redirect(url_for('main.home'))
 
     return render_template('signup.html', form=form)
