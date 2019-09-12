@@ -35,7 +35,10 @@ class Role(db.Model):
     name = db.Column(db.String(), unique=True)
 
     def __repr__(self):
-        return '<Role %r>' % self.name
+        return '<Role %s>' % self.name
+
+    def __str__(self):
+        return self.name
 
     def to_dict(self):
         return {
