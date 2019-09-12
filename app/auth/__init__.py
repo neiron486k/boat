@@ -43,7 +43,9 @@ def signup():
     form = SignupForm()
 
     if form.validate_on_submit():
-        new_user = UserService().create(form.data)
+        data = form.data
+        data.pop('confirm')
+        new_user = UserService().create(User(**data))
         login_user(new_user)
         signup_signal.send(new_user)
         return redirect(url_for('main.home'))

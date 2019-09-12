@@ -4,7 +4,7 @@ from config import TestDefaultConfig
 from app.article.models import Article
 from app.user.services import UserService
 from feature.orm import db
-from app.user.models import Role
+from app.user.models import Role, User
 import json
 
 app = create_app(TestDefaultConfig)
@@ -23,14 +23,12 @@ class MixinTestCase:
     @pytest.fixture
     def admin(self, app_init):
         with app_init.app_context():
-            user = UserService().create(dict(
+            user = User(
                 email='admin@example.com',
                 password='admin',
-                confirm='admin'
-            ), False)
-            role = Role(
-                name='admin'
             )
+            user = UserService().create(user, False)
+            role = Role(name='admin')
             user.roles.append(role)
             db.session.add(user)
             db.session.commit()
