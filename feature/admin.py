@@ -3,7 +3,8 @@ from flask_login import current_user
 from flask import url_for, request, redirect
 from flask_admin.contrib.sqla import ModelView
 from .orm import db
-from app.user.models import User
+from app.user.models import User, Role
+from app.article.models import Article
 
 admin = Admin()
 
@@ -30,3 +31,5 @@ class HomeAdminView(AdminMixin, AdminIndexView):
 def admin_feature(app):
     admin.init_app(app, index_view=HomeAdminView(name='Home'), url='/')
     admin.add_views(AdminView(User, db.session))
+    admin.add_views(AdminView(Role, db.session))
+    admin.add_views(AdminView(Article, db.session, endpoint='articles'))
