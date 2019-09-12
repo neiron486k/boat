@@ -29,7 +29,9 @@ class HomeAdminView(AdminMixin, AdminIndexView):
 
 
 def admin_feature(app):
-    admin.init_app(app, index_view=HomeAdminView(name='Home'), url='/')
+    admin.init_app(app, index_view=HomeAdminView(endpoint=''))
+    admin.url = '/'
+    admin.name = 'Boat'
     admin.add_views(AdminView(User, db.session))
     admin.add_views(AdminView(Role, db.session))
     admin.add_views(AdminView(Article, db.session, endpoint='articles'))
