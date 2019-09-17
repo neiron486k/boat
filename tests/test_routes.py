@@ -51,8 +51,8 @@ class MixinTestCase:
 
 class TestArticle(MixinTestCase):
     @pytest.mark.usefixtures('article')
-    def test_articles(self):
-        rv = self.client.get('/articles')
+    def test_get_articles(self):
+        rv = self.client.get('/api/articles')
         data = rv.get_json()
         assert 'test title' == data[0]['title']
         assert 'test content' == data[0]['content']
@@ -65,6 +65,6 @@ class TestArticle(MixinTestCase):
             content='some content'
         )
         self.login('admin@example.com', 'admin')
-        self.client.post('/articles', data=json.dumps(prepare_date), content_type='application/json')
+        self.client.post('/api/articles', data=json.dumps(prepare_date), content_type='application/json')
         article = Article.query.filter_by(title=prepare_date['title']).first()
         assert prepare_date['title'] == article.title

@@ -17,14 +17,6 @@ def users_feature(app):
     # init login manager
     login_manager.init_app(app)
 
-    @login_manager.request_loader
-    def request_loader(request):
-        pass
-
-    @login_manager.user_loader
-    def load_user(user_id: int):
-        return User.query.get(user_id)
-
     # init principal
     principal.init_app(app)
 
@@ -48,7 +40,3 @@ def users_feature(app):
                 identity.provides.add(RoleNeed(role.name))
 
         return identity
-
-    # @app.errorhandler(PermissionDenied)
-    # def special_exception_handler(error):
-    #     return 'Permission denied', 403

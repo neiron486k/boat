@@ -26,6 +26,6 @@ def create_app(config=None):
     app.register_blueprint(main)
 
     from app.article import article_bp
-    app.register_blueprint(article_bp)
+    app.register_blueprint(article_bp, url_prefix="/api")
 
     return app
