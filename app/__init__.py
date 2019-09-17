@@ -18,8 +18,7 @@ def create_app(config=None):
     admin.admin_feature(app)
     logger.logging_feature(app)
 
-
-    # Blueprints #
+    #: Blueprints
     from app.auth import auth
     app.register_blueprint(auth, url_prefix='/auth')
 
