@@ -1,7 +1,6 @@
 from flask import session
 from flask_login import current_user, LoginManager
 from flask_principal import Identity, identity_loaded, RoleNeed, UserNeed, AnonymousIdentity, Principal
-from app.user.models import User
 
 login_manager = LoginManager()
 principal = Principal()

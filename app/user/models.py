@@ -11,8 +11,8 @@ class User(UserMixin, db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(), unique=True, nullable=False)
-    password = db.Column(db.String(), nullable=False)
+    email = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
     roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
 
     def has_role(self, role: str):
@@ -32,7 +32,7 @@ class Role(db.Model):
     __tablename__ = 'roles'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(), unique=True)
+    name = db.Column(db.String(255), unique=True)
 
     def __repr__(self):
         return '<Role %s>' % self.name

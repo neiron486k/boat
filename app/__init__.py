@@ -1,5 +1,5 @@
 from flask import Flask
-from feature import orm, users, admin, logger, redis
+from feature import orm, users, admin, logger, redis, toolbar
 
 
 def create_app(config=None):
@@ -18,6 +18,7 @@ def create_app(config=None):
     admin.admin_feature(app)
     logger.logging_feature(app)
     redis.redis_feature(app)
+    toolbar.toolbar_feature(app)
 
     #: Blueprints
     from app.auth import auth
