@@ -2,6 +2,7 @@ import pytest
 from app import create_app
 from config import TestDefaultConfig
 from app.article.models import Article
+from app.article.services import ArticleService
 from app.user.services import UserService
 from feature.orm import db
 from app.user.models import Role, User
@@ -38,8 +39,7 @@ class MixinTestCase:
     def article(self, app_init):
         with app.app_context():
             a = Article(title='test title', content='test content')
-            db.session.add(a)
-            db.session.commit()
+            ArticleService().create_article(a)
             yield a
 
     def login(self, username: str, password: str):
