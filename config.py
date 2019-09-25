@@ -6,6 +6,9 @@ class DefaultConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = os.getenv('SQLALCHEMY_TRACK_MODIFICATIONS')
     SECRET_KEY = os.getenv('SECRET_KEY')
     WTF_CSRF_ENABLED = False
+    CACHE_TYPE = os.getenv("CACHE_TYPE")
+    CACHE_REDIS_HOST = "localhost"
+    CACHE_DEFAULT_TIMEOUT = os.getenv("CACHE_DEFAULT_TIMEOUT")
 
 
 class TestDefaultConfig(DefaultConfig):

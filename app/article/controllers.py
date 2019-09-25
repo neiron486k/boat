@@ -1,9 +1,10 @@
 from flask.views import MethodView
 from flask import jsonify, request
-from .models import Article
 from .forms import ArticleForm
 from .services import ArticleService
 from app.user.permission import admin_permission
+from feature.cache import cache
+from .models import Article
 
 
 class ArticleAPI(MethodView):
@@ -22,6 +23,7 @@ class ArticleAPI(MethodView):
 
         a = Article(**data)
         ArticleService().create_article(a)
+        cache.delete(Article.RESULT_ID)
         return jsonify(a.to_dict())
 
 

@@ -1,5 +1,5 @@
 from flask import Flask
-from feature import orm, users, admin, logger, redis, toolbar
+from feature import orm, users, admin, logger, redis, toolbar, cache
 
 
 def create_app(config=None):
@@ -13,6 +13,7 @@ def create_app(config=None):
 
     app = Flask(__name__)
     app.config.from_object(config)
+    cache.cache_feature(app)
     orm.orm_feature(app)
     users.users_feature(app)
     admin.admin_feature(app)
